@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytest_cli_fixtures"
+description = "Automatically register fixtures for custom CLI arguments"
+readme = "README.md"
+dynamic = ["version"]
+requires-python = ">=3.7"
+license = {file = "LICENSE.md"}
+classifiers = [
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Testing",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+authors = [{name = "Chris Wright"}]
+dependencies = ["pytest"]
+
+[project.urls]
+repository = "https://github.com/inkychris/pytest-cli-fixtures"
+
+[project.entry-points.pytest11]
+pytest_cli_fixtures = "pytest_cli_fixtures.plugin"
+
+[tool.setuptools.dynamic]
+version = {attr = "pytest_cli_fixtures.__version__"}
+
+[tool.pytest.ini_options]
+norecursedirs = ["test/example"]

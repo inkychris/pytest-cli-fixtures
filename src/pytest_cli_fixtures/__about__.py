@@ -1,6 +1,0 @@
-__title__ = 'pytest_cli_fixtures'
-__summary__ = 'Define CLI options and automatically register fixtures for them'
-__uri__ = 'https://github.com/inkychris/pytest-cli-fixtures'
-__version__ = '0.1.dev0'
-__author__ = 'Chris Wright'
-__copyright__ = f'2022 {__author__}'
