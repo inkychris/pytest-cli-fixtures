@@ -1,6 +1,7 @@
 import dataclasses
 import itertools
 import re
+import typing
 
 import pytest
 
@@ -12,7 +13,7 @@ def pytest_addhooks(pluginmanager):
 
 @dataclasses.dataclass
 class _RegisteredOption:
-    opt_names: list[tuple[str]]
+    opt_names: typing.Sequence
     attrs: dict
     required: bool
     is_fixture: bool = False
