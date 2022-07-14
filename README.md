@@ -47,6 +47,16 @@ in plugins, or in `conftest.py`.
 
 [pytest_addoption_doc]: https://docs.pytest.org/en/latest/reference/reference.html#_pytest.hookspec.pytest_addoption
 
+## Installation
+This plugin is available on [PyPI][pypi]:
+```
+> pip install pytest-cli-fixtures
+```
+***Note:*** *This plugin requires [pytest][pytest]
+version 7.0 or later.*
+
+[pytest]: https://docs.pytest.org/
+
 ## Example
 The following `conftest.py` defines
 a `--value` argument within the `my args` group.
