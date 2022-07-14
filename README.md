@@ -1,4 +1,25 @@
 # pytest-cli-fixtures
+
+[![Package Version][pypi_badge]][pypi]
+[![Python Versions][pyversions_badge]][pypi]
+[![Build Status][ci_status_badge]][gh_actions]
+[![Code Coverage][codecov_badge]][codecov]
+[![License][license_badge]][license_file]
+
+[pypi]: https://pypi.python.org/pypi/pytest-cli-fixtures
+[pypi_badge]: https://img.shields.io/pypi/v/pytest-cli-fixtures.svg
+
+[pyversions_badge]: https://img.shields.io/pypi/pyversions/pytest-cli-fixtures.svg
+
+[gh_actions]: https://github.com/inkychris/pytest-cli-fixtures/actions
+[ci_status_badge]: https://github.com/inkychris/pytest-cli-fixtures/actions/workflows/ci.yaml/badge.svg
+
+[codecov]: https://codecov.io/gh/inkychris/pytest-cli-fixtures
+[codecov_badge]: https://codecov.io/gh/inkychris/pytest-cli-fixtures/branch/main/graph/badge.svg?token=TYWP82UBSB
+
+[license_badge]: https://img.shields.io/pypi/l/pytest-cli-fixtures.svg
+[license_file]: https://github.com/inkychris/pytest-cli-fixtures/blob/main/LICENSE.md
+
 The `pytest-cli-fixtures` plugin provides a way
 to automatically register fixtures
 based off of command line argument definitions.
