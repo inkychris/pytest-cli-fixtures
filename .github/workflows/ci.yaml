@@ -1,0 +1,103 @@
+name: CI
+on:
+  push:
+    branches: [main]
+    tags-ignore: ['*']
+  pull_request:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Generate package files
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          architecture: x64
+
+      - name: Install Dependencies
+        run: pip install build twine
+
+      - name: Generate Artifacts
+        run: python -m build --wheel
+
+      - name: Check Package
+        run: twine check dist/*.whl
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: wheel
+          path: dist/*.whl
+          if-no-files-found: error
+
+  test:
+    strategy:
+      matrix:
+        platform: ['ubuntu-latest', 'macos-latest', 'windows-latest']
+        python-version: ['3.7', '3.8', '3.9', '3.10']
+        pytest-version: ['7.0']
+    needs: [build]
+    runs-on: ${{ matrix.platform }}
+    name: ${{ matrix.platform }} py${{ matrix.python-version }} pytest${{ matrix.pytest-version }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+
+      - uses: actions/download-artifact@v3
+        id: download
+        with:
+          name: wheel
+
+      - name: Install Dependencies
+        run: pip install coverage[toml]
+
+      - name: Install Package
+        run: pip install pytest_cli_fixtures*.whl
+        if: ${{ matrix.platform != 'windows-latest' }}
+
+      - name: Install Package
+        run: pip install "$(gci pytest_cli_fixtures*.whl)"
+        if: ${{ matrix.platform == 'windows-latest' }}
+
+      - name: Run test
+        run: coverage run
+
+      - name: Generate coverage report
+        run: coverage xml
+
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: true
+          verbose: true
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    needs: [build, test]
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: wheel
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install twine
+
+      - run: twine upload pytest_cli_fixtures*.whl
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}

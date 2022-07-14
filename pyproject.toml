@@ -39,6 +39,5 @@ norecursedirs = ["test/example"]
 [tool.coverage.run]
 source = ["pytest_cli_fixtures"]
 command_line = "-m pytest -v test"
-parallel = true
 branch = true
 relative_files = true
