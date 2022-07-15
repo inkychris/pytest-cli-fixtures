@@ -42,7 +42,8 @@ and the `parser` object that is provided
 is the same as in the built-in hook.
 
 ***Note:*** Like the built-in [`pytest_addoption`][pytest_addoption_doc] hook,
-the `pytest_add_cli_fixtures` should only be implemented
+the `pytest_add_cli_fixtures` hook
+should only be implemented
 in plugins, or in `conftest.py`.
 
 [pytest_addoption_doc]: https://docs.pytest.org/en/latest/reference/reference.html#_pytest.hookspec.pytest_addoption
