@@ -1,3 +1,6 @@
+import pytest
+
+
 def pytest_add_cli_fixtures(parser):
     parser.addoption('--bare-value', dest='val2', type=int, default=1)
 
@@ -8,3 +11,9 @@ def pytest_add_cli_fixtures(parser):
 def pytest_addoption(parser):
     parser.addoption('--optional', type=int, default=5)
     parser.addoption('--fully-required', type=int, required=True)
+    parser.addoption('--conflict', action='store_true', default=False)
+
+
+@pytest.fixture(name='conflict')
+def _fixture_conflict():
+    return 'conflict'

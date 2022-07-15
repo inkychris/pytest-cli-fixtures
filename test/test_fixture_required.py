@@ -27,7 +27,7 @@ def test_standard_arg_invalid(plugin_tester):
 
 def test_valid(plugin_tester):
     result = plugin_tester.runpytest('--fully-required=1', '--value=2')
-    result.assert_outcomes(passed=3)
+    result.assert_outcomes(passed=4)
 
 
 def test_invalid_fixture_arg(plugin_tester):

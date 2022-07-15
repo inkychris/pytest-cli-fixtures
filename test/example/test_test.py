@@ -8,3 +8,7 @@ def test_with_fixture(value):
 
 def test_with_optional_fixture(val2):
     assert val2 + 2 == 3
+
+
+def test_conflict(conflict):
+    assert conflict == 'conflict'

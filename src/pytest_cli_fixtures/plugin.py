@@ -95,13 +95,19 @@ def pytest_load_initial_conftests(early_config):
 def pytest_collection_finish(session):
     required_fixtures = set(itertools.chain(*[item.fixturenames for item in session.items]))
     registered_options = session.config.stash['registered_options']
+
+    def _option_is_required(option):
+        if option.is_fixture and option.dest not in required_fixtures:
+            return False
+        return option.required
+
+    def _option_is_missing(option):
+        return session.config.getoption(option.dest) is None
+
     missing_options = [
         '/'.join(option.opt_names)
         for option in registered_options
-        if not session.config.getoption(option.dest)
-        and (
-            option.dest in required_fixtures
-            or not option.is_fixture and option.required)
+        if _option_is_required(option) and _option_is_missing(option)
     ]
     if missing_options:
         session.config._parser._getparser().error(f'the following arguments are required: {", ".join(missing_options)}')
